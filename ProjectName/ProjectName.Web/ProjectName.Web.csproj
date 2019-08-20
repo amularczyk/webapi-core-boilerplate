@@ -1,0 +1,25 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp2.2</TargetFramework>
+    <AspNetCoreHostingModel>InProcess</AspNetCoreHostingModel>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore.App" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Controllers\" />
+    <Folder Include="Models\" />
+    <Folder Include="Filters\" />
+    <Folder Include="Configs\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\ProjectName.Core\ProjectName.Core.csproj" />
+    <ProjectReference Include="..\ProjectName.DAL\ProjectName.DAL.csproj" />
+    <ProjectReference Include="..\ProjectName.Validator\ProjectName.Validator.csproj" />
+  </ItemGroup>
+
+</Project>
