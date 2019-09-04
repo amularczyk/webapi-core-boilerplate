@@ -3,19 +3,21 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.28307.779
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ProjectName.Web", "ProjectName.Web\ProjectName.Web.csproj", "{383E1AC9-08C1-4E47-A9BF-1B664F8E3247}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ProjectName.Web", "ProjectName.Web\ProjectName.Web.csproj", "{383E1AC9-08C1-4E47-A9BF-1B664F8E3247}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ProjectName.Core", "ProjectName.Core\ProjectName.Core.csproj", "{6E407A40-0337-44DC-9A07-DA5545DD3F77}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ProjectName.Core", "ProjectName.Core\ProjectName.Core.csproj", "{6E407A40-0337-44DC-9A07-DA5545DD3F77}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ProjectName.Validator", "ProjectName.Validator\ProjectName.Validator.csproj", "{2ABEAF8A-0187-4206-9B2E-25E084CD89DA}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ProjectName.Validator", "ProjectName.Validator\ProjectName.Validator.csproj", "{2ABEAF8A-0187-4206-9B2E-25E084CD89DA}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ProjectName.DAL", "ProjectName.DAL\ProjectName.DAL.csproj", "{D9F28FA1-03C2-4ABE-85A2-DB7B4F360608}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ProjectName.DAL", "ProjectName.DAL\ProjectName.DAL.csproj", "{D9F28FA1-03C2-4ABE-85A2-DB7B4F360608}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "1. Core", "1. Core", "{78131B7C-050D-4187-BBF0-536E32D31B5B}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "2. Infrastructure", "2. Infrastructure", "{6753E4DE-B8BF-4576-BA69-CDEBED9D514E}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "3. Presentation", "3. Presentation", "{3D79E353-25A6-4A82-A51C-B4BEB6850A5D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ProjectName.Core.Tests", "ProjectName.Core.Tests\ProjectName.Core.Tests.csproj", "{4A452383-C739-4CB0-BFB8-F8A358F4019B}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -39,6 +41,10 @@ Global
 		{D9F28FA1-03C2-4ABE-85A2-DB7B4F360608}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D9F28FA1-03C2-4ABE-85A2-DB7B4F360608}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D9F28FA1-03C2-4ABE-85A2-DB7B4F360608}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4A452383-C739-4CB0-BFB8-F8A358F4019B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4A452383-C739-4CB0-BFB8-F8A358F4019B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4A452383-C739-4CB0-BFB8-F8A358F4019B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4A452383-C739-4CB0-BFB8-F8A358F4019B}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -48,6 +54,7 @@ Global
 		{6E407A40-0337-44DC-9A07-DA5545DD3F77} = {78131B7C-050D-4187-BBF0-536E32D31B5B}
 		{2ABEAF8A-0187-4206-9B2E-25E084CD89DA} = {6753E4DE-B8BF-4576-BA69-CDEBED9D514E}
 		{D9F28FA1-03C2-4ABE-85A2-DB7B4F360608} = {6753E4DE-B8BF-4576-BA69-CDEBED9D514E}
+		{4A452383-C739-4CB0-BFB8-F8A358F4019B} = {78131B7C-050D-4187-BBF0-536E32D31B5B}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {DF09A67B-BE50-4B00-9600-F764906118BF}
