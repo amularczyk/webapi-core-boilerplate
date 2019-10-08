@@ -5,7 +5,7 @@ using ProjectName.Core.Models;
 
 namespace ProjectName.Core.Interfaces.Services
 {
-    public interface IItemsReadService
+    public interface IItemsReadService : ITransient
     {
         Task<IEnumerable<Item>> RetrieveAllAsync();
         Task<Item> RetrieveByIdAsync(Guid itemId);
