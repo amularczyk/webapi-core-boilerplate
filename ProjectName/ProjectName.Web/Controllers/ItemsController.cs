@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using ProjectName.Core.Interfaces.Services;
@@ -37,7 +36,7 @@ namespace ProjectName.Web.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Post([FromBody] Item request)
+        public async Task<IActionResult> Post([FromBody]Item request)
         {
             var itemId = await _itemsWriteService.InsertAsync(request);
 

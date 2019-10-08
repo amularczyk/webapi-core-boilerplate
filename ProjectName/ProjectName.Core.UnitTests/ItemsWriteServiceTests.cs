@@ -8,7 +8,7 @@ using ProjectName.Core.Services;
 using Shouldly;
 using Xunit;
 
-namespace ProjectName.Core.Tests
+namespace ProjectName.Core.UnitTests
 {
     public class ItemsWriteServiceTests
     {
