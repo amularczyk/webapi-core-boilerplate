@@ -7,6 +7,7 @@ using Microsoft.Extensions.DependencyInjection;
 using ProjectName.Core.Interfaces;
 using ProjectName.DAL;
 using ProjectName.Validator.Validators;
+using ProjectName.Web.Filters;
 
 namespace ProjectName.Web
 {
@@ -24,7 +25,9 @@ namespace ProjectName.Web
             services.ConfigureDatabase(Configuration);
             services.MigrateDatabase();
 
-            services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
+            services
+                .AddMvc(options => { options.Filters.Add(new GlobalExceptionFilter()); })
+                .SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
 
             services.Scan(scan =>
             {
