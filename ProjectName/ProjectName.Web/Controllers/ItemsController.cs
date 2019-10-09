@@ -36,7 +36,7 @@ namespace ProjectName.Web.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Post([FromBody]Item request)
+        public async Task<IActionResult> InsertAsync([FromBody]Item request)
         {
             var itemId = await _itemsWriteService.InsertAsync(request);
 
