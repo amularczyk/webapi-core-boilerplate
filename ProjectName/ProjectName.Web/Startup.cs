@@ -8,6 +8,7 @@ using ProjectName.Core.Interfaces;
 using ProjectName.DAL;
 using ProjectName.Validator.Validators;
 using ProjectName.Web.Filters;
+using Swashbuckle.AspNetCore.Swagger;
 
 namespace ProjectName.Web
 {
@@ -22,13 +23,14 @@ namespace ProjectName.Web
 
         public void ConfigureServices(IServiceCollection services)
         {
-            services.ConfigureDatabase(Configuration);
-            services.MigrateDatabase();
+            ConfigureDatabase(services);
+            ConfigureAutomaticRegistration(services);
+            ConfigureMvc(services);
+            ConfigureSwagger(services);
+        }
 
-            services
-                .AddMvc(options => { options.Filters.Add(new GlobalExceptionFilter()); })
-                .SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
-
+        private static void ConfigureAutomaticRegistration(IServiceCollection services)
+        {
             services.Scan(scan =>
             {
                 var assemblies = GetAssembliesForScanning();
@@ -38,6 +40,24 @@ namespace ProjectName.Web
                     .AsImplementedInterfaces()
                     .WithTransientLifetime();
             });
+        }
+
+        private void ConfigureDatabase(IServiceCollection services)
+        {
+            services.ConfigureDatabase(Configuration);
+            services.MigrateDatabase();
+        }
+
+        private static void ConfigureSwagger(IServiceCollection services)
+        {
+            services.AddSwaggerGen(c => { c.SwaggerDoc("v1", new Info { Title = "My API", Version = "v1" }); });
+        }
+
+        private static void ConfigureMvc(IServiceCollection services)
+        {
+            services
+                .AddMvc(options => { options.Filters.Add(new GlobalExceptionFilter()); })
+                .SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
         }
 
         private static Assembly[] GetAssembliesForScanning()
@@ -54,7 +74,8 @@ namespace ProjectName.Web
         {
             if (env.IsDevelopment())
             {
-                app.UseDeveloperExceptionPage();
+                app.UseSwagger();
+                app.UseSwaggerUI(c => { c.SwaggerEndpoint("/swagger/v1/swagger.json", "My API V1"); });
             }
 
             app.UseHttpsRedirection();
