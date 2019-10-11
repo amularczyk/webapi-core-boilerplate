@@ -42,13 +42,13 @@ namespace ProjectName.Web
             });
         }
 
-        private void ConfigureDatabase(IServiceCollection services)
+        protected virtual void ConfigureDatabase(IServiceCollection services)
         {
             services.ConfigureDatabase(Configuration);
             services.MigrateDatabase();
         }
 
-        private static void ConfigureSwagger(IServiceCollection services)
+        protected virtual void ConfigureSwagger(IServiceCollection services)
         {
             services.AddSwaggerGen(c => { c.SwaggerDoc("v1", new Info { Title = "My API", Version = "v1" }); });
         }
