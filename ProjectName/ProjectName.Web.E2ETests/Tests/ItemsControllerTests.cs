@@ -72,6 +72,24 @@ namespace ProjectName.Web.E2ETests.Tests
         }
 
         [Fact]
+        public async Task InsertAsync_ShouldReturnError_WhenNameIsEmpty()
+        {
+            // arrange
+            var item = new Item();
+
+            var client = _factory.CreateClient();
+
+            // act
+            var response = await client.PostAsync(ItemsUrl, GetContent(item));
+
+            // assert
+            response.StatusCode.ShouldBe(HttpStatusCode.BadRequest);
+            var result = await response.Content.ReadAsStringAsync();
+            result.ShouldContain("Validation failed:");
+            result.ShouldContain("Name: 'Name' must not be empty.");
+        }
+
+        [Fact]
         public async Task RetrieveByIdAsync_ShouldReturnAddedItemDetails()
         {
             // arrange

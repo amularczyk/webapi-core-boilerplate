@@ -1,13 +1,15 @@
-﻿using System.Threading.Tasks;
+﻿using FluentValidation;
 using ProjectName.Core.Interfaces.Validators;
 using ProjectName.Core.Models;
 
 namespace ProjectName.Validator.Validators
 {
-    public class ItemsValidator : IItemsValidator
+    public class ItemsValidator : BaseValidator<Item>, IItemsValidator
     {
-        public async Task ValidateEntityAsync(Item entity)
+        public ItemsValidator()
         {
+            RuleFor(r => r.Name)
+                .NotEmpty();
         }
     }
 }
