@@ -9,7 +9,7 @@ using Xunit;
 
 namespace ProjectName.Web.E2ETests.Tests
 {
-    [Collection("DatabaseCollection")]
+    [Collection(nameof(SharedDatabase))]
     public class ItemsControllerTests : ApiTestsBase
     {
         private readonly WebApiTesterFactory _factory;

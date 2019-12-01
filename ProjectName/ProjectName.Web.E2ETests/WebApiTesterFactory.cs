@@ -12,21 +12,15 @@ namespace ProjectName.Web.E2ETests
             return new WebHostBuilder()
                 .ConfigureAppConfiguration((hostingContext, config) =>
                 {
-                    config.AddJsonFile("appsettings.json", true, true);
+                    config.AddJsonFile("appsettings.json");
                 })
                 .UseEnvironment("Test")
                 .UseStartup<TestStartup>();
         }
-
-        protected override void ConfigureWebHost(IWebHostBuilder builder)
-        {
-            builder.UseContentRoot(".");
-            base.ConfigureWebHost(builder);
-        }
     }
 
-    [CollectionDefinition("DatabaseCollection")]
-    public class DatabaseCollection : IClassFixture<WebApiTesterFactory>
+    [CollectionDefinition(nameof(SharedDatabase))]
+    public class SharedDatabase : IClassFixture<WebApiTesterFactory>
     {
         // This class has no code, and is never created. Its purpose is simply
         // to be the place to apply [CollectionDefinition] and all the
