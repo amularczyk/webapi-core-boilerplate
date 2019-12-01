@@ -8,6 +8,7 @@ using ProjectName.Core.Interfaces;
 using ProjectName.DAL;
 using ProjectName.Validator.Validators;
 using ProjectName.Web.Filters;
+using Serilog;
 using Swashbuckle.AspNetCore.Swagger;
 
 namespace ProjectName.Web
@@ -77,6 +78,9 @@ namespace ProjectName.Web
                 app.UseSwagger();
                 app.UseSwaggerUI(c => { c.SwaggerEndpoint("/swagger/v1/swagger.json", "My API V1"); });
             }
+
+            //app.UseMiddleware<RequestTimeLoggingMiddleware>();
+            //app.UseSerilogRequestLogging();
 
             app.UseHttpsRedirection();
             app.UseMvc();

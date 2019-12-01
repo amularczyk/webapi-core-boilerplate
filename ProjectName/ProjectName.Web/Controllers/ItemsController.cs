@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Logging;
 using ProjectName.Core.Interfaces.Services;
 using ProjectName.Core.Models;
 
@@ -10,11 +11,13 @@ namespace ProjectName.Web.Controllers
     [ApiController]
     public class ItemsController : ControllerBase
     {
+        private readonly ILogger<ItemsController> _logger;
         private readonly IItemsReadService _itemsReadService;
         private readonly IItemsWriteService _itemsWriteService;
 
-        public ItemsController(IItemsReadService itemsReadService, IItemsWriteService itemsWriteService)
+        public ItemsController(ILogger<ItemsController> logger, IItemsReadService itemsReadService, IItemsWriteService itemsWriteService)
         {
+            _logger = logger;
             _itemsReadService = itemsReadService;
             _itemsWriteService = itemsWriteService;
         }
@@ -23,6 +26,8 @@ namespace ProjectName.Web.Controllers
         public async Task<IActionResult> RetrieveAllAsync()
         {
             var items = await _itemsReadService.RetrieveAllAsync();
+
+            _logger.LogInformation("Getting all items!");
 
             return new OkObjectResult(items);
         }
