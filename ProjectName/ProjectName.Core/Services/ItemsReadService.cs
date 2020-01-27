@@ -13,8 +13,10 @@ namespace ProjectName.Core.Services
         private readonly IItemsRepository _itemsRepository;
         private readonly ILogger<ItemsReadService> _logger;
 
-        public ItemsReadService(IItemsRepository itemsRepository,
-            ILogger<ItemsReadService> logger)
+        public ItemsReadService(
+            IItemsRepository itemsRepository,
+            ILogger<ItemsReadService> logger
+        )
         {
             _itemsRepository = itemsRepository;
             _logger = logger;

@@ -12,7 +12,10 @@ namespace ProjectName.Core.Services
         private readonly IItemsRepository _itemsRepository;
         private readonly IItemsValidator _itemsValidator;
 
-        public ItemsWriteService(IItemsRepository itemsRepository, IItemsValidator itemsValidator)
+        public ItemsWriteService(
+            IItemsRepository itemsRepository,
+            IItemsValidator itemsValidator
+        )
         {
             _itemsRepository = itemsRepository;
             _itemsValidator = itemsValidator;
