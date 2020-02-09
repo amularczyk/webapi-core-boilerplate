@@ -8,7 +8,7 @@ namespace ProjectName.Web.Filters
 {
     public class RequestTimeLoggingMiddleware
     {
-        private static ILogger<RequestTimeLoggingMiddleware> _logger;
+        private readonly ILogger<RequestTimeLoggingMiddleware> _logger;
         private readonly RequestDelegate _next;
 
         public RequestTimeLoggingMiddleware(ILogger<RequestTimeLoggingMiddleware> logger, RequestDelegate next)

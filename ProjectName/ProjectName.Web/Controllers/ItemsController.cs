@@ -11,11 +11,15 @@ namespace ProjectName.Web.Controllers
     [ApiController]
     public class ItemsController : ControllerBase
     {
-        private readonly ILogger<ItemsController> _logger;
         private readonly IItemsReadService _itemsReadService;
         private readonly IItemsWriteService _itemsWriteService;
+        private readonly ILogger<ItemsController> _logger;
 
-        public ItemsController(ILogger<ItemsController> logger, IItemsReadService itemsReadService, IItemsWriteService itemsWriteService)
+        public ItemsController(
+            ILogger<ItemsController> logger,
+            IItemsReadService itemsReadService,
+            IItemsWriteService itemsWriteService
+        )
         {
             _logger = logger;
             _itemsReadService = itemsReadService;
@@ -41,7 +45,7 @@ namespace ProjectName.Web.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> InsertAsync([FromBody]Item request)
+        public async Task<IActionResult> InsertAsync([FromBody] Item request)
         {
             var itemId = await _itemsWriteService.InsertAsync(request);
 

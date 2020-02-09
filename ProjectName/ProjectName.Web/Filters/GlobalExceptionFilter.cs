@@ -1,10 +1,11 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using System.Threading.Tasks;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
 using Microsoft.Extensions.Logging;
 
 namespace ProjectName.Web.Filters
 {
-    public class GlobalExceptionFilter : IExceptionFilter
+    public class GlobalExceptionFilter : IAsyncExceptionFilter
     {
         private readonly ILogger<GlobalExceptionFilter> _logger;
 
@@ -13,9 +14,9 @@ namespace ProjectName.Web.Filters
             _logger = logger;
         }
 
-        public void OnException(ExceptionContext context)
+        public async Task OnExceptionAsync(ExceptionContext context)
         {
-            var ex = context.Exception; 
+            var ex = context.Exception;
             _logger.LogError(ex, "Unexpected error occurred");
 
             switch (ex)

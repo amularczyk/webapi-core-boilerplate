@@ -1,7 +1,10 @@
 ﻿using System.Reflection;
+using FluentValidation;
+using FluentValidation.AspNetCore;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Filters;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using ProjectName.Core.Interfaces;
@@ -51,14 +54,18 @@ namespace ProjectName.Web
 
         protected virtual void ConfigureSwagger(IServiceCollection services)
         {
-            services.AddSwaggerGen(c => { c.SwaggerDoc("v1", new Info { Title = "My API", Version = "v1" }); });
+            services.AddSwaggerGen(c => { c.SwaggerDoc("v1", new Info { Title = "My API" }); });
         }
 
         private static void ConfigureMvc(IServiceCollection services)
         {
             services
-                .AddMvc(options => { options.Filters.Add(new GlobalExceptionFilter()); })
-                .SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
+                .AddMvc(options => { options.Filters.Add(typeof(GlobalExceptionFilter)); })
+                .AddFluentValidation(fv =>
+                {
+                    fv.RegisterValidatorsFromAssemblyContaining<ItemValidator>();
+                    fv.ImplicitlyValidateChildProperties = true;
+                });
         }
 
         private static Assembly[] GetAssembliesForScanning()
@@ -67,7 +74,7 @@ namespace ProjectName.Web
             {
                 typeof(ITransient).Assembly,
                 typeof(DataContext).Assembly,
-                typeof(ItemsValidator).Assembly
+                typeof(ItemValidator).Assembly
             };
         }
 
@@ -76,7 +83,7 @@ namespace ProjectName.Web
             if (env.IsDevelopment())
             {
                 app.UseSwagger();
-                app.UseSwaggerUI(c => { c.SwaggerEndpoint("/swagger/v1/swagger.json", "My API V1"); });
+                app.UseSwaggerUI(c => { c.SwaggerEndpoint("/swagger/v1/swagger.json", "My API"); });
             }
 
             //app.UseMiddleware<RequestTimeLoggingMiddleware>();

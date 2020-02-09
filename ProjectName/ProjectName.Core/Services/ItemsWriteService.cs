@@ -10,20 +10,20 @@ namespace ProjectName.Core.Services
     public class ItemsWriteService : IItemsWriteService
     {
         private readonly IItemsRepository _itemsRepository;
-        private readonly IItemsValidator _itemsValidator;
+        private readonly IItemValidator _itemValidator;
 
         public ItemsWriteService(
             IItemsRepository itemsRepository,
-            IItemsValidator itemsValidator
+            IItemValidator itemValidator
         )
         {
             _itemsRepository = itemsRepository;
-            _itemsValidator = itemsValidator;
+            _itemValidator = itemValidator;
         }
 
         public async Task<Guid> InsertAsync(Item item)
         {
-            await _itemsValidator.ValidateEntityAsync(item);
+            await _itemValidator.ValidateEntityAsync(item);
 
             item.Id = Guid.NewGuid();
 

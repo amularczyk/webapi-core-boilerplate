@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 15
-VisualStudioVersion = 15.0.28307.779
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.29728.190
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ProjectName.Web", "ProjectName.Web\ProjectName.Web.csproj", "{383E1AC9-08C1-4E47-A9BF-1B664F8E3247}"
 EndProject
@@ -21,7 +21,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ProjectName.Core.UnitTests"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ProjectName.Web.E2ETests", "ProjectName.Web.E2ETests\ProjectName.Web.E2ETests.csproj", "{310F95EE-7A58-4606-956C-206EDB825A5D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ProjectName.Validator.UnitTests", "ProjectName.Validator.UnitTests\ProjectName.Validator.UnitTests.csproj", "{3F132634-D74D-4625-865A-30FF1DEA56AF}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ProjectName.Validator.UnitTests", "ProjectName.Validator.UnitTests\ProjectName.Validator.UnitTests.csproj", "{3F132634-D74D-4625-865A-30FF1DEA56AF}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

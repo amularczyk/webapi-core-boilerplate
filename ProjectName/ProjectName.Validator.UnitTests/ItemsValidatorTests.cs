@@ -25,7 +25,7 @@ namespace ProjectName.Validator.UnitTests
             // Arrange
             var item = GetValidItem();
 
-            var sut = _mocker.Create<ItemsValidator>();
+            var sut = _mocker.Create<ItemValidator>();
 
             // Act
             await sut.ValidateEntityAsync(item);
@@ -40,7 +40,7 @@ namespace ProjectName.Validator.UnitTests
             var item = GetValidItem();
             item.Name = name;
 
-            var sut = _mocker.Create<ItemsValidator>();
+            var sut = _mocker.Create<ItemValidator>();
 
             // Act
             var action = (Func<Task>)(() => sut.ValidateEntityAsync(item));
@@ -57,7 +57,7 @@ namespace ProjectName.Validator.UnitTests
             // Arrange
             var item = GetValidItem();
 
-            var sut = _mocker.Create<ItemsValidator>();
+            var sut = _mocker.Create<ItemValidator>();
 
             // Act
             var result = await sut.ValidateAsync(item);
@@ -76,7 +76,7 @@ namespace ProjectName.Validator.UnitTests
             var item = GetValidItem();
             item.Name = name;
 
-            var sut = _mocker.Create<ItemsValidator>();
+            var sut = _mocker.Create<ItemValidator>();
 
             // Act
             var result = await sut.ValidateAsync(item);

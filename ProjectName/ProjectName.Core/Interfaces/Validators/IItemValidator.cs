@@ -2,7 +2,7 @@
 
 namespace ProjectName.Core.Interfaces.Validators
 {
-    public interface IItemsValidator : IValidator<Item>
+    public interface IItemValidator : IValidator<Item>
     {
         
     }

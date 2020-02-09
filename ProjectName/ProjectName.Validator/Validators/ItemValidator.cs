@@ -4,9 +4,9 @@ using ProjectName.Core.Models;
 
 namespace ProjectName.Validator.Validators
 {
-    public class ItemsValidator : BaseValidator<Item>, IItemsValidator
+    public class ItemValidator : BaseValidator<Item>, IItemValidator
     {
-        public ItemsValidator()
+        public ItemValidator()
         {
             RuleFor(r => r.Name)
                 .NotEmpty();
