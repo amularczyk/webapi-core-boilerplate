@@ -7,7 +7,7 @@ using ProjectName.Core.Models;
 using Shouldly;
 using Xunit;
 
-namespace ProjectName.Web.E2ETests.Tests
+namespace ProjectName.Api.E2ETests.Tests
 {
     [Collection(nameof(SharedDatabase))]
     public class ItemsControllerTests : ApiTestsBase

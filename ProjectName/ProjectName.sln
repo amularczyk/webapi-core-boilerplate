@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.29728.190
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ProjectName.Web", "ProjectName.Web\ProjectName.Web.csproj", "{383E1AC9-08C1-4E47-A9BF-1B664F8E3247}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ProjectName.Api", "ProjectName.Api\ProjectName.Api.csproj", "{383E1AC9-08C1-4E47-A9BF-1B664F8E3247}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ProjectName.Core", "ProjectName.Core\ProjectName.Core.csproj", "{6E407A40-0337-44DC-9A07-DA5545DD3F77}"
 EndProject
@@ -19,7 +19,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "3. Presentation", "3. Prese
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ProjectName.Core.UnitTests", "ProjectName.Core.UnitTests\ProjectName.Core.UnitTests.csproj", "{4A452383-C739-4CB0-BFB8-F8A358F4019B}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ProjectName.Web.E2ETests", "ProjectName.Web.E2ETests\ProjectName.Web.E2ETests.csproj", "{310F95EE-7A58-4606-956C-206EDB825A5D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ProjectName.Api.E2ETests", "ProjectName.Api.E2ETests\ProjectName.Api.E2ETests.csproj", "{310F95EE-7A58-4606-956C-206EDB825A5D}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ProjectName.Validator.UnitTests", "ProjectName.Validator.UnitTests\ProjectName.Validator.UnitTests.csproj", "{3F132634-D74D-4625-865A-30FF1DEA56AF}"
 EndProject

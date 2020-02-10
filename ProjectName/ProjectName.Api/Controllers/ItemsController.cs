@@ -5,7 +5,7 @@ using Microsoft.Extensions.Logging;
 using ProjectName.Core.Interfaces.Services;
 using ProjectName.Core.Models;
 
-namespace ProjectName.Web.Controllers
+namespace ProjectName.Api.Controllers
 {
     [Route("api/items")]
     [ApiController]

@@ -8,7 +8,7 @@ using Serilog;
 using Serilog.Exceptions;
 using Serilog.Formatting.Compact;
 
-namespace ProjectName.Web
+namespace ProjectName.Api
 {
     public class Program
     {

@@ -4,7 +4,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Logging;
 
-namespace ProjectName.Web.Filters
+namespace ProjectName.Api.Filters
 {
     public class RequestTimeLoggingMiddleware
     {

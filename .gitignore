@@ -328,5 +328,7 @@ ASALocalRun/
 
 # MFractors (Xamarin productivity tool) working folder 
 .mfractor/
+
 /ProjectName/NDependOut
 /ProjectName/ProjectName.ndproj
+*.local.json

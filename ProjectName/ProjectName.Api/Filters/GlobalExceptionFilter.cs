@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
 using Microsoft.Extensions.Logging;
 
-namespace ProjectName.Web.Filters
+namespace ProjectName.Api.Filters
 {
     public class GlobalExceptionFilter : IAsyncExceptionFilter
     {

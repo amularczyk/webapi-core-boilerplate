@@ -3,7 +3,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Newtonsoft.Json;
 
-namespace ProjectName.Web.E2ETests
+namespace ProjectName.Api.E2ETests
 {
     public class ApiTestsBase
     {

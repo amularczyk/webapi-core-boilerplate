@@ -1,20 +1,16 @@
 ﻿using System.Reflection;
-using FluentValidation;
-using FluentValidation.AspNetCore;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Filters;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using ProjectName.Api.Filters;
 using ProjectName.Core.Interfaces;
 using ProjectName.DAL;
-using ProjectName.Validator.Validators;
-using ProjectName.Web.Filters;
+using ProjectName.Validator;
 using Serilog;
 using Swashbuckle.AspNetCore.Swagger;
 
-namespace ProjectName.Web
+namespace ProjectName.Api
 {
     public class Startup
     {
@@ -54,18 +50,13 @@ namespace ProjectName.Web
 
         protected virtual void ConfigureSwagger(IServiceCollection services)
         {
-            services.AddSwaggerGen(c => { c.SwaggerDoc("v1", new Info { Title = "My API" }); });
+            services.AddSwaggerGen(c => { c.SwaggerDoc("v1", new Info {Title = "My API"}); });
         }
 
         private static void ConfigureMvc(IServiceCollection services)
         {
             services
-                .AddMvc(options => { options.Filters.Add(typeof(GlobalExceptionFilter)); })
-                .AddFluentValidation(fv =>
-                {
-                    fv.RegisterValidatorsFromAssemblyContaining<ItemValidator>();
-                    fv.ImplicitlyValidateChildProperties = true;
-                });
+                .AddMvc(options => { options.Filters.Add(typeof(GlobalExceptionFilter)); });
         }
 
         private static Assembly[] GetAssembliesForScanning()
@@ -74,7 +65,7 @@ namespace ProjectName.Web
             {
                 typeof(ITransient).Assembly,
                 typeof(DataContext).Assembly,
-                typeof(ItemValidator).Assembly
+                typeof(BaseValidator<>).Assembly
             };
         }
 
@@ -86,8 +77,7 @@ namespace ProjectName.Web
                 app.UseSwaggerUI(c => { c.SwaggerEndpoint("/swagger/v1/swagger.json", "My API"); });
             }
 
-            //app.UseMiddleware<RequestTimeLoggingMiddleware>();
-            //app.UseSerilogRequestLogging();
+            app.UseSerilogRequestLogging();
 
             app.UseHttpsRedirection();
             app.UseMvc();

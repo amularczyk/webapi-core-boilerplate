@@ -3,7 +3,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using ProjectName.DAL;
 
-namespace ProjectName.Web.E2ETests
+namespace ProjectName.Api.E2ETests
 {
     public class TestStartup : Startup
     {
