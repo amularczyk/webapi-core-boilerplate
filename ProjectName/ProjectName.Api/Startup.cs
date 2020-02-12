@@ -1,14 +1,17 @@
 ﻿using System.Reflection;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Hosting;
+using Microsoft.OpenApi.Models;
+using ProjectName.Api.Controllers.Ex;
 using ProjectName.Api.Filters;
 using ProjectName.Core.Interfaces;
 using ProjectName.DAL;
 using ProjectName.Validator;
 using Serilog;
-using Swashbuckle.AspNetCore.Swagger;
 
 namespace ProjectName.Api
 {
@@ -23,10 +26,27 @@ namespace ProjectName.Api
 
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddTransient<SomeObjectManager>();
+            services.AddTransient<Controllers.Res.SomeObjectManager>();
+
             ConfigureDatabase(services);
             ConfigureAutomaticRegistration(services);
             ConfigureMvc(services);
             ConfigureSwagger(services);
+        }
+
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
+        {
+            if (env.IsDevelopment())
+            {
+                app.UseSwagger();
+                app.UseSwaggerUI(c => { c.SwaggerEndpoint("/swagger/v1/swagger.json", "My API"); });
+            }
+
+            app.UseSerilogRequestLogging();
+
+            app.UseHttpsRedirection();
+            app.UseMvc();
         }
 
         private static void ConfigureAutomaticRegistration(IServiceCollection services)
@@ -50,37 +70,30 @@ namespace ProjectName.Api
 
         protected virtual void ConfigureSwagger(IServiceCollection services)
         {
-            services.AddSwaggerGen(c => { c.SwaggerDoc("v1", new Info {Title = "My API"}); });
+            services.AddSwaggerGen(c => { c.SwaggerDoc("v1", new OpenApiInfo {Title = "My API"}); });
         }
 
         private static void ConfigureMvc(IServiceCollection services)
         {
             services
-                .AddMvc(options => { options.Filters.Add(typeof(GlobalExceptionFilter)); });
+                .AddMvc(options =>
+                {
+                    options.EnableEndpointRouting = false;
+                    options.Filters.Add(typeof(GlobalExceptionFilter));
+                });
         }
 
         private static Assembly[] GetAssembliesForScanning()
         {
             return new[]
             {
+                typeof(SomeObjectManager).Assembly,
+                typeof(Controllers.Res.SomeObjectManager).Assembly,
                 typeof(ITransient).Assembly,
                 typeof(DataContext).Assembly,
                 typeof(BaseValidator<>).Assembly
             };
         }
 
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env)
-        {
-            if (env.IsDevelopment())
-            {
-                app.UseSwagger();
-                app.UseSwaggerUI(c => { c.SwaggerEndpoint("/swagger/v1/swagger.json", "My API"); });
-            }
-
-            app.UseSerilogRequestLogging();
-
-            app.UseHttpsRedirection();
-            app.UseMvc();
-        }
     }
 }
