@@ -12,24 +12,12 @@ namespace ProjectName.Validator.UnitTests
 {
     public class ItemsValidatorTests
     {
-        private readonly AutoMoqer _mocker;
-
         public ItemsValidatorTests()
         {
             _mocker = new AutoMoqer();
         }
 
-        [Fact]
-        public async Task ValidateEntityAsync_ShouldNotThrowAnyException_WhenModelIsValid()
-        {
-            // Arrange
-            var item = GetValidItem();
-
-            var sut = _mocker.Create<ItemValidator>();
-
-            // Act
-            await sut.ValidateEntityAsync(item);
-        }
+        private readonly AutoMoqer _mocker;
 
         [Theory]
         [InlineData(null)]
@@ -43,28 +31,12 @@ namespace ProjectName.Validator.UnitTests
             var sut = _mocker.Create<ItemValidator>();
 
             // Act
-            var action = (Func<Task>)(() => sut.ValidateEntityAsync(item));
+            var action = (Func<Task>) (() => sut.ValidateEntityAsync(item));
 
             // Assert
             var ex = await Should.ThrowAsync<ValidationException>(action);
             ex.Message.ShouldContain("Validation failed:");
             ex.Message.ShouldContain("Name: 'Name' must not be empty.");
-        }
-
-        [Fact]
-        public async Task ValidateAsync_ShouldNotReturnAnyErrors_WhenModelIsValid()
-        {
-            // Arrange
-            var item = GetValidItem();
-
-            var sut = _mocker.Create<ItemValidator>();
-
-            // Act
-            var result = await sut.ValidateAsync(item);
-
-            // Assert
-            result.IsValid.ShouldBeTrue();
-            result.Errors.ShouldBeEmpty();
         }
 
         [Theory]
@@ -90,7 +62,35 @@ namespace ProjectName.Validator.UnitTests
 
         private static Item GetValidItem()
         {
-            return new Item { Name = Guid.NewGuid().ToString() };
+            return new Item {Name = Guid.NewGuid().ToString()};
+        }
+
+        [Fact]
+        public async Task ValidateAsync_ShouldNotReturnAnyErrors_WhenModelIsValid()
+        {
+            // Arrange
+            var item = GetValidItem();
+
+            var sut = _mocker.Create<ItemValidator>();
+
+            // Act
+            var result = await sut.ValidateAsync(item);
+
+            // Assert
+            result.IsValid.ShouldBeTrue();
+            result.Errors.ShouldBeEmpty();
+        }
+
+        [Fact]
+        public async Task ValidateEntityAsync_ShouldNotThrowAnyException_WhenModelIsValid()
+        {
+            // Arrange
+            var item = GetValidItem();
+
+            var sut = _mocker.Create<ItemValidator>();
+
+            // Act
+            await sut.ValidateEntityAsync(item);
         }
     }
 }

@@ -12,53 +12,18 @@ namespace ProjectName.Api.E2ETests.Tests
     [Collection(nameof(SharedDatabase))]
     public class ItemsControllerTests : ApiTestsBase
     {
-        private readonly WebApiTesterFactory _factory;
-
         public ItemsControllerTests(WebApiTesterFactory factory)
         {
             _factory = factory;
         }
 
-        [Fact]
-        public async Task RetrieveAllAsync_ShouldReturnAllItems()
-        {
-            // arrange
-            var client = _factory.CreateClient();
-
-            // act
-            var response = await client.GetAsync(ItemsUrl);
-
-            // assert
-            response.StatusCode.ShouldBe(HttpStatusCode.OK);
-            var result = await GetResult<IList<Item>>(response);
-            result.Count.ShouldBeGreaterThanOrEqualTo(0);
-        }
-
-        [Fact]
-        public async Task RetrieveAllAsync_ShouldReturnAddedItemInItemList()
-        {
-            // arrange
-            var item = new Item { Name = Guid.NewGuid().ToString() };
-
-            var client = _factory.CreateClient();
-
-            await client.PostAsync(ItemsUrl, GetContent(item));
-
-            // act
-            var response = await client.GetAsync(ItemsUrl);
-
-            // assert
-            response.StatusCode.ShouldBe(HttpStatusCode.OK);
-            var result = await GetResult<IList<Item>>(response);
-            result.Count.ShouldBeGreaterThanOrEqualTo(1);
-            result.FirstOrDefault(r => r.Name == item.Name).ShouldNotBeNull();
-        }
+        private readonly WebApiTesterFactory _factory;
 
         [Fact]
         public async Task InsertAsync_ShouldAddedNewItem()
         {
             // arrange
-            var item = new Item { Name = Guid.NewGuid().ToString() };
+            var item = new Item {Name = Guid.NewGuid().ToString()};
 
             var client = _factory.CreateClient();
 
@@ -90,10 +55,45 @@ namespace ProjectName.Api.E2ETests.Tests
         }
 
         [Fact]
+        public async Task RetrieveAllAsync_ShouldReturnAddedItemInItemList()
+        {
+            // arrange
+            var item = new Item {Name = Guid.NewGuid().ToString()};
+
+            var client = _factory.CreateClient();
+
+            await client.PostAsync(ItemsUrl, GetContent(item));
+
+            // act
+            var response = await client.GetAsync(ItemsUrl);
+
+            // assert
+            response.StatusCode.ShouldBe(HttpStatusCode.OK);
+            var result = await GetResult<IList<Item>>(response);
+            result.Count.ShouldBeGreaterThanOrEqualTo(1);
+            result.FirstOrDefault(r => r.Name == item.Name).ShouldNotBeNull();
+        }
+
+        [Fact]
+        public async Task RetrieveAllAsync_ShouldReturnAllItems()
+        {
+            // arrange
+            var client = _factory.CreateClient();
+
+            // act
+            var response = await client.GetAsync(ItemsUrl);
+
+            // assert
+            response.StatusCode.ShouldBe(HttpStatusCode.OK);
+            var result = await GetResult<IList<Item>>(response);
+            result.Count.ShouldBeGreaterThanOrEqualTo(0);
+        }
+
+        [Fact]
         public async Task RetrieveByIdAsync_ShouldReturnAddedItemDetails()
         {
             // arrange
-            var item = new Item { Name = Guid.NewGuid().ToString() };
+            var item = new Item {Name = Guid.NewGuid().ToString()};
 
             var client = _factory.CreateClient();
 

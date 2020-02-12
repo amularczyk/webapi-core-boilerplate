@@ -36,7 +36,7 @@ namespace ProjectName.Api.Filters
 
         private static double GetElapsedMilliseconds(long start, long stop)
         {
-            return (stop - start) * 1000 / (double)Stopwatch.Frequency;
+            return (stop - start) * 1000 / (double) Stopwatch.Frequency;
         }
     }
 }

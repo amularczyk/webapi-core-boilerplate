@@ -13,18 +13,18 @@ namespace ProjectName.Core.UnitTests
 {
     public class ItemsReadServiceTests
     {
-        private readonly AutoMoqer _mocker;
-
         public ItemsReadServiceTests()
         {
             _mocker = new AutoMoqer();
         }
 
+        private readonly AutoMoqer _mocker;
+
         [Fact]
         public async Task RetrieveAllAsync_ShouldReturnAllItems()
         {
             // Arrange
-            var items = new[] { new Item() };
+            var items = new[] {new Item()};
 
             var sut = _mocker.Create<ItemsReadService>();
 
@@ -45,7 +45,7 @@ namespace ProjectName.Core.UnitTests
         {
             // Arrange
             var id = Guid.NewGuid();
-            var item = new Item { Id = id };
+            var item = new Item {Id = id};
 
             var sut = _mocker.Create<ItemsReadService>();
 

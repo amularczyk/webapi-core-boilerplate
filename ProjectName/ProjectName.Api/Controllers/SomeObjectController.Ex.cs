@@ -9,7 +9,6 @@ namespace ProjectName.Api.Controllers.Ex
     {
         public MyException() : base("Operation cannot be processed.")
         {
-
         }
     }
 

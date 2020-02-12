@@ -10,10 +10,7 @@ namespace ProjectName.Api.E2ETests
         protected override IWebHostBuilder CreateWebHostBuilder()
         {
             return new WebHostBuilder()
-                .ConfigureAppConfiguration((hostingContext, config) =>
-                {
-                    config.AddJsonFile("appsettings.json");
-                })
+                .ConfigureAppConfiguration((hostingContext, config) => { config.AddJsonFile("appsettings.json"); })
                 .UseEnvironment("Test")
                 .UseStartup<TestStartup>();
         }

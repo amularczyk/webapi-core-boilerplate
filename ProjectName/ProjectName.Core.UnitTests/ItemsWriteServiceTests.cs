@@ -12,12 +12,12 @@ namespace ProjectName.Core.UnitTests
 {
     public class ItemsWriteServiceTests
     {
-        private readonly AutoMoqer _mocker;
-
         public ItemsWriteServiceTests()
         {
             _mocker = new AutoMoqer();
         }
+
+        private readonly AutoMoqer _mocker;
 
         [Fact]
         public async Task RetrieveByIdAsync_ShouldReturnItemForGivenId()
