@@ -7,8 +7,8 @@ using ProjectName.Core.Models;
 
 namespace ProjectName.Api.Controllers
 {
-    [Route("api/items")]
     [ApiController]
+    [Route("api/items")]
     public class ItemsController : ControllerBase
     {
         private readonly IItemsReadService _itemsReadService;

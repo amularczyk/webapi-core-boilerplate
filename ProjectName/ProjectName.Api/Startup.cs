@@ -5,7 +5,6 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
-using ProjectName.Api.Controllers.Ex;
 using ProjectName.Api.Filters;
 using ProjectName.Core.Interfaces;
 using ProjectName.DAL;
@@ -25,9 +24,6 @@ namespace ProjectName.Api
 
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddTransient<SomeObjectManager>();
-            services.AddTransient<Controllers.Res.SomeObjectManager>();
-
             ConfigureDatabase(services);
             ConfigureAutomaticRegistration(services);
             ConfigureMvc(services);
@@ -45,7 +41,13 @@ namespace ProjectName.Api
             app.UseSerilogRequestLogging();
 
             app.UseHttpsRedirection();
-            app.UseMvc();
+
+            app.UseRouting();
+
+            app.UseEndpoints(endpoints =>
+            {
+                endpoints.MapControllers();
+            });
         }
 
         private static void ConfigureAutomaticRegistration(IServiceCollection services)
@@ -69,25 +71,21 @@ namespace ProjectName.Api
 
         protected virtual void ConfigureSwagger(IServiceCollection services)
         {
-            services.AddSwaggerGen(c => { c.SwaggerDoc("v1", new OpenApiInfo {Title = "My API"}); });
+            services.AddSwaggerGen(c => { c.SwaggerDoc("v1", new OpenApiInfo { Title = "My API" }); });
         }
 
         private static void ConfigureMvc(IServiceCollection services)
         {
-            services
-                .AddMvc(options =>
-                {
-                    options.EnableEndpointRouting = false;
-                    options.Filters.Add(typeof(GlobalExceptionFilter));
-                });
+            services.AddControllers(options =>
+            {
+                options.Filters.Add(typeof(GlobalExceptionFilter));
+            });
         }
 
         private static Assembly[] GetAssembliesForScanning()
         {
             return new[]
             {
-                typeof(SomeObjectManager).Assembly,
-                typeof(Controllers.Res.SomeObjectManager).Assembly,
                 typeof(ITransient).Assembly,
                 typeof(DataContext).Assembly,
                 typeof(BaseValidator<>).Assembly

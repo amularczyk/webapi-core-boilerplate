@@ -1,5 +1,6 @@
 ﻿using System.Threading.Tasks;
 using FluentValidation;
+using FluentValidation.Results;
 
 namespace ProjectName.Validator
 {
@@ -11,14 +12,14 @@ namespace ProjectName.Validator
             ValidatorOptions.LanguageManager.Enabled = false;
         }
 
-        public virtual async Task ValidateEntityAsync(T entity)
+        public virtual async Task<ValidationResult> ValidateEntityAsync(T entity)
         {
-            var result = await ValidateAsync(entity);
+            return await ValidateAsync(entity);
+        }
 
-            if (!result.IsValid)
-            {
-                throw new ValidationException(result.Errors);
-            }
+        public virtual async Task ValidateEntityAndThrowAsync(T entity)
+        {
+            await this.ValidateAndThrowAsync(entity);
         }
     }
 }

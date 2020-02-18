@@ -1,9 +1,9 @@
 ﻿using System;
 using System.IO;
 using System.Reflection;
-using Microsoft.AspNetCore;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.Hosting;
 using Serilog;
 using Serilog.Exceptions;
 using Serilog.Formatting.Compact;
@@ -28,13 +28,13 @@ namespace ProjectName.Api
             }
         }
 
-        public static IWebHostBuilder CreateWebHostBuilder(string[] args)
+        public static IHostBuilder CreateWebHostBuilder(string[] args)
         {
-            return WebHost
+            return Host
                 .CreateDefaultBuilder(args)
                 .ConfigureAppConfiguration(config => { config.AddJsonFile("appsettings.local.json", true); })
                 .UseSerilog()
-                .UseStartup<Startup>();
+                .ConfigureWebHostDefaults(webBuilder => { webBuilder.UseStartup<Startup>(); });
         }
 
         private static IConfigurationRoot GetConfiguration()

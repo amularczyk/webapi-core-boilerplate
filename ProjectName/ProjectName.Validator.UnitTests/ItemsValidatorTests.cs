@@ -31,7 +31,7 @@ namespace ProjectName.Validator.UnitTests
             var sut = _mocker.Create<ItemValidator>();
 
             // Act
-            var action = (Func<Task>) (() => sut.ValidateEntityAsync(item));
+            var action = (Func<Task>) (() => sut.ValidateAndThrowAsync(item));
 
             // Assert
             var ex = await Should.ThrowAsync<ValidationException>(action);
@@ -90,7 +90,7 @@ namespace ProjectName.Validator.UnitTests
             var sut = _mocker.Create<ItemValidator>();
 
             // Act
-            await sut.ValidateEntityAsync(item);
+            await sut.ValidateAndThrowAsync(item);
         }
     }
 }

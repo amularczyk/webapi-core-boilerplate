@@ -23,7 +23,7 @@ namespace ProjectName.Core.Services
 
         public async Task<Guid> InsertAsync(Item item)
         {
-            await _itemValidator.ValidateEntityAsync(item);
+            await _itemValidator.ValidateEntityAndThrowAsync(item);
 
             item.Id = Guid.NewGuid();
 
