@@ -1,30 +1,25 @@
 ﻿using System.Threading.Tasks;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
-using Microsoft.Extensions.Logging;
+using ProjectName.Core.Exceptions;
 
 namespace ProjectName.Api.Filters
 {
     public class GlobalExceptionFilter : IAsyncExceptionFilter
     {
-        private readonly ILogger<GlobalExceptionFilter> _logger;
-
-        public GlobalExceptionFilter(ILogger<GlobalExceptionFilter> logger)
-        {
-            _logger = logger;
-        }
-
         public async Task OnExceptionAsync(ExceptionContext context)
         {
-            var ex = context.Exception;
-            _logger.LogError(ex, "Unexpected error occurred");
-
-            switch (ex)
+            context.Result = context.Exception switch
             {
-                default:
-                    context.Result = new BadRequestObjectResult(ex.Message);
-                    break;
-            }
+                ValidationException ex => new BadRequestObjectResult(ex.Message),
+                NoFoundException ex => new NotFoundObjectResult(ex.Message),
+                AuthorizationException ex => new ObjectResult(ex.Message)
+                {
+                    StatusCode = StatusCodes.Status403Forbidden
+                },
+                _ => new BadRequestObjectResult(context.Exception.Message)
+            };
         }
     }
 }

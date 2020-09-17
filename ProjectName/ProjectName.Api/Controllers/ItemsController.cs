@@ -2,6 +2,7 @@
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
+using ProjectName.Api.Models;
 using ProjectName.Core.Interfaces.Services;
 using ProjectName.Core.Models;
 
@@ -27,29 +28,38 @@ namespace ProjectName.Api.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> RetrieveAllAsync()
+        public async Task<IActionResult> RetrieveAll()
         {
-            var items = await _itemsReadService.RetrieveAllAsync();
+            var items = await _itemsReadService.RetrieveAllAsync().ConfigureAwait(false);
 
             _logger.LogInformation("Getting all items!");
 
-            return new OkObjectResult(items);
+            return Ok(items);
         }
 
         [HttpGet("{itemId}")]
-        public async Task<IActionResult> RetrieveByIdAsync(Guid itemId)
+        public async Task<IActionResult> RetrieveById(Guid itemId)
         {
-            var item = await _itemsReadService.RetrieveByIdAsync(itemId);
+            var item = await _itemsReadService.RetrieveByIdAsync(itemId).ConfigureAwait(false);
 
-            return new OkObjectResult(item);
+            return Ok(item);
         }
 
         [HttpPost]
-        public async Task<IActionResult> InsertAsync([FromBody] Item request)
+        public async Task<IActionResult> Insert([FromBody]ItemViewModel request)
         {
-            var itemId = await _itemsWriteService.InsertAsync(request);
+            var item = new Item(request.Name);
+            var itemId = await _itemsWriteService.InsertAsync(item).ConfigureAwait(false);
 
-            return new OkObjectResult(itemId);
+            return Ok(itemId);
+        }
+
+        [HttpPatch("{itemId}")]
+        public async Task<IActionResult> ChangeName(Guid itemId, string name)
+        {
+            await _itemsWriteService.ChangeNameAsync(itemId, name).ConfigureAwait(false);
+
+            return NoContent();
         }
     }
 }

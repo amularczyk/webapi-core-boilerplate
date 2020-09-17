@@ -60,6 +60,11 @@ namespace ProjectName.Api
                     .AddClasses(classes => classes.AssignableTo(typeof(ITransient)))
                     .AsImplementedInterfaces()
                     .WithTransientLifetime();
+
+                scan.FromAssemblies(assemblies)
+                    .AddClasses(classes => classes.AssignableTo(typeof(IScoped)))
+                    .AsImplementedInterfaces()
+                    .WithScopedLifetime();
             });
         }
 
@@ -78,7 +83,14 @@ namespace ProjectName.Api
         {
             services.AddControllers(options =>
             {
-                options.Filters.Add(typeof(GlobalExceptionFilter));
+                options.Filters.Add<UnhandledExceptionFilter>(0);
+                //options.Filters.Add<AuthorizationExceptionFilter>(1);
+                //options.Filters.Add<NoFoundExceptionFilter>(2);
+                //options.Filters.Add<ValidationExceptionFilter>(3);
+
+                //options.Filters.Add<GlobalExceptionFilter>();
+
+                //options.Filters.Add<ResultHandlerFilter>();
             });
         }
 

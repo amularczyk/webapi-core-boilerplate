@@ -4,7 +4,17 @@ namespace ProjectName.Core.Models
 {
     public class Item
     {
-        public Guid Id { get; set; }
-        public string Name { get; set; }
+        public Item(string name)
+        {
+            Name = name;
+        }
+
+        public Guid Id { get; protected set; }
+        public string Name { get; protected set; }
+
+        public void ChangeName(string newName)
+        {
+            Name = newName;
+        }
     }
 }

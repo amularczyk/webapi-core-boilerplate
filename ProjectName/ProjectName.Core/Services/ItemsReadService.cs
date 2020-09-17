@@ -25,12 +25,12 @@ namespace ProjectName.Core.Services
         public async Task<IEnumerable<Item>> RetrieveAllAsync()
         {
             _logger.LogInformation("Logging test");
-            return await _itemsRepository.RetrieveAllAsync();
+            return await _itemsRepository.RetrieveAllAsync().ConfigureAwait(false);
         }
 
         public async Task<Item> RetrieveByIdAsync(Guid itemId)
         {
-            return await _itemsRepository.RetrieveByIdAsync(itemId);
+            return await _itemsRepository.RetrieveByIdAsync(itemId).ConfigureAwait(false);
         }
     }
 }

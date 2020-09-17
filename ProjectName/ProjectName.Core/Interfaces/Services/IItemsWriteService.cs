@@ -7,5 +7,6 @@ namespace ProjectName.Core.Interfaces.Services
     public interface IItemsWriteService : ITransient
     {
         Task<Guid> InsertAsync(Item item);
+        Task ChangeNameAsync(Guid itemId, string name);
     }
 }

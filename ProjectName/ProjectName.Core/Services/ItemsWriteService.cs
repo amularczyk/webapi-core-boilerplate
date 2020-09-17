@@ -23,13 +23,22 @@ namespace ProjectName.Core.Services
 
         public async Task<Guid> InsertAsync(Item item)
         {
-            await _itemValidator.ValidateEntityAndThrowAsync(item);
+            await _itemValidator.ValidateEntityAndThrowAsync(item).ConfigureAwait(false);
 
-            item.Id = Guid.NewGuid();
-
-            await _itemsRepository.InsertAsync(item);
+            await _itemsRepository.InsertAsync(item).ConfigureAwait(false);
 
             return item.Id;
+        }
+
+        public async Task ChangeNameAsync(Guid itemId, string name)
+        {
+            var item = await _itemsRepository.RetrieveByIdAsync(itemId).ConfigureAwait(false);
+
+            item.ChangeName(name);
+
+            await _itemValidator.ValidateEntityAndThrowAsync(item).ConfigureAwait(false);
+
+            await _itemsRepository.UpdateAsync(item).ConfigureAwait(false);
         }
     }
 }

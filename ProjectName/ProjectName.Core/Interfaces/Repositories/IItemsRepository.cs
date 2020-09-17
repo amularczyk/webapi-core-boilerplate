@@ -10,5 +10,6 @@ namespace ProjectName.Core.Interfaces.Repositories
         Task<IEnumerable<Item>> RetrieveAllAsync();
         Task<Item> RetrieveByIdAsync(Guid itemId);
         Task<bool> InsertAsync(Item item);
+        Task<bool> UpdateAsync(Item item);
     }
 }
