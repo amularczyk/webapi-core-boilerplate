@@ -1,7 +1,7 @@
 ﻿using System;
-using ProjectName.Core.Interfaces;
+using ProjectName.Core.Services;
 
-namespace ProjectName.Core.Services
+namespace ProjectName.Core.UnitTests
 {
     public class ClockOverride : IDisposable
     {

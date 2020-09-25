@@ -8,6 +8,7 @@ namespace ProjectName.Api.E2ETests
     public class ApiTestsBase
     {
         protected static readonly string ItemsUrl = "api/items";
+        protected static readonly string ArticlesUrl = "api/articles"; 
 
         protected static StringContent GetContent<T>(T request)
         {
@@ -16,7 +17,7 @@ namespace ProjectName.Api.E2ETests
 
         protected static async Task<T> GetResult<T>(HttpResponseMessage response)
         {
-            return JsonConvert.DeserializeObject<T>(await response.Content.ReadAsStringAsync());
+            return JsonConvert.DeserializeObject<T>(await response.Content.ReadAsStringAsync().ConfigureAwait(false));
         }
     }
 }

@@ -10,6 +10,7 @@ namespace ProjectName.DAL
         }
 
         public DbSet<Item> Items { get; set; }
+        public DbSet<Article> Articles { get; set; }
 
         protected override void OnModelCreating(ModelBuilder builder)
         {

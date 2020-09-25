@@ -1,4 +1,5 @@
 ﻿using System.Reflection;
+using MediatR;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
@@ -28,6 +29,8 @@ namespace ProjectName.Api
             ConfigureAutomaticRegistration(services);
             ConfigureMvc(services);
             ConfigureSwagger(services);
+
+            services.AddMediatR(typeof(ITransient));
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
@@ -40,7 +43,7 @@ namespace ProjectName.Api
 
             app.UseSerilogRequestLogging();
 
-            app.UseHttpsRedirection();
+            //app.UseHttpsRedirection(); //ToDo: Not work for tests
 
             app.UseRouting();
 
@@ -81,17 +84,19 @@ namespace ProjectName.Api
 
         private static void ConfigureMvc(IServiceCollection services)
         {
-            services.AddControllers(options =>
-            {
-                options.Filters.Add<UnhandledExceptionFilter>(0);
-                //options.Filters.Add<AuthorizationExceptionFilter>(1);
-                //options.Filters.Add<NoFoundExceptionFilter>(2);
-                //options.Filters.Add<ValidationExceptionFilter>(3);
+            services
+                .AddControllers(options =>
+                {
+                    options.Filters.Add<UnhandledExceptionFilter>(0);
+                    //options.Filters.Add<AuthorizationExceptionFilter>(1);
+                    //options.Filters.Add<NoFoundExceptionFilter>(2);
+                    //options.Filters.Add<ValidationExceptionFilter>(3);
 
-                //options.Filters.Add<GlobalExceptionFilter>();
+                    //options.Filters.Add<GlobalExceptionFilter>();
 
-                //options.Filters.Add<ResultHandlerFilter>();
-            });
+                    //options.Filters.Add<ResultHandlerFilter>();
+                })
+                .AddApplicationPart(typeof(Startup).Assembly);
         }
 
         private static Assembly[] GetAssembliesForScanning()

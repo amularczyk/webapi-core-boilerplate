@@ -6,7 +6,7 @@ namespace ProjectName.Core.Services
     {
         private static IDateTime _dateTime;
 
-        internal static IDateTime InternalDateTime
+        public static IDateTime InternalDateTime
         {
             get { return _dateTime ??= new SystemDateTime(); }
             set => _dateTime = value;

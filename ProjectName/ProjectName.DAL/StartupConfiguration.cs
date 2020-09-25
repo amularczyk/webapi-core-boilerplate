@@ -9,9 +9,7 @@ namespace ProjectName.DAL
         public static void ConfigureDatabase(this IServiceCollection services, IConfiguration configuration)
         {
             var connectionString = configuration.GetConnectionString("SqlServerConnection");
-            services
-                .AddEntityFrameworkSqlServer()
-                .AddDbContext<DataContext>(options => options.UseSqlServer(connectionString));
+            services.AddDbContext<DataContext>(options => options.UseSqlServer(connectionString));
         }
 
         public static void MigrateDatabase(this IServiceCollection services)
