@@ -52,12 +52,12 @@ namespace ProjectName.Api.Controllers
             return Ok(articleId);
         }
 
-        //[HttpPatch("{itemId}")]
-        //public async Task<IActionResult> ChangeName(Guid itemId, string name)
-        //{
-        //    await _itemsWriteService.ChangeNameAsync(itemId, name).ConfigureAwait(false);
+        [HttpPatch("{articleId}")]
+        public async Task<IActionResult> ChangeName(Guid articleId, string name)
+        {
+            await _mediator.Send(new ChangeArticleName(articleId, name)).ConfigureAwait(false);
 
-        //    return NoContent();
-        //}
+            return NoContent();
+        }
     }
 }

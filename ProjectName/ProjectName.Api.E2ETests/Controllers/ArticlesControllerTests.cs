@@ -5,7 +5,6 @@ using System.Net;
 using System.Threading.Tasks;
 using ProjectName.Api.E2ETests.Models;
 using ProjectName.Api.Models;
-using ProjectName.Core.Models;
 using Shouldly;
 using Xunit;
 
@@ -100,16 +99,40 @@ namespace ProjectName.Api.E2ETests.Controllers
             var client = _factory.CreateClient();
 
             var addArticleResponse = await client.PostAsync(ArticlesUrl, GetContent(article)).ConfigureAwait(false);
-            var ArticleId = await GetResult<Guid>(addArticleResponse).ConfigureAwait(false);
+            var articleId = await GetResult<Guid>(addArticleResponse).ConfigureAwait(false);
 
             // act
-            var response = await client.GetAsync($"{ArticlesUrl}/{ArticleId}").ConfigureAwait(false);
+            var response = await client.GetAsync($"{ArticlesUrl}/{articleId}").ConfigureAwait(false);
 
             // assert
             response.StatusCode.ShouldBe(HttpStatusCode.OK);
             var result = await GetResult<TestArticle>(response).ConfigureAwait(false);
-            result.Id.ShouldBe(ArticleId);
+            result.Id.ShouldBe(articleId);
             result.Name.ShouldBe(article.Name);
+        }
+
+        [Fact]
+        public async Task ChangeNameAsync_ShouldChangeArticleName()
+        {
+            // arrange
+            var article = new ArticleViewModel { Name = Guid.NewGuid().ToString() };
+            var newName = Guid.NewGuid().ToString();
+
+            var client = _factory.CreateClient();
+
+            var addArticleResponse = await client.PostAsync(ArticlesUrl, GetContent(article)).ConfigureAwait(false);
+            var articleId = await GetResult<Guid>(addArticleResponse).ConfigureAwait(false);
+
+            // act
+            var response = await client.PatchAsync($"{ArticlesUrl}/{articleId}?name={newName}", null).ConfigureAwait(false);
+
+            // assert
+            response.StatusCode.ShouldBe(HttpStatusCode.NoContent);
+
+            var changedArticle = await client.GetAsync($"{ArticlesUrl}/{articleId}").ConfigureAwait(false);
+            var result = await GetResult<TestArticle>(changedArticle).ConfigureAwait(false);
+            result.Name.ShouldBe(newName);
+            result.Name.ShouldNotBe(article.Name);
         }
     }
 }
