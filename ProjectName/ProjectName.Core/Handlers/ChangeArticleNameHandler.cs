@@ -22,9 +22,9 @@ namespace ProjectName.Core.Handlers
 
     public class ChangeArticleNameHandler : AsyncRequestHandler<ChangeArticleName>
     {
-        private readonly ILogger<ChangeArticleNameHandler> _logger;
         private readonly IArticlesRepository _articlesRepository;
         private readonly IArticleValidator _articleValidator;
+        private readonly ILogger<ChangeArticleNameHandler> _logger;
 
         public ChangeArticleNameHandler(
             ILogger<ChangeArticleNameHandler> logger,

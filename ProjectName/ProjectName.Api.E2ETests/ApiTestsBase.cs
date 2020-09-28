@@ -8,7 +8,7 @@ namespace ProjectName.Api.E2ETests
     public class ApiTestsBase
     {
         protected static readonly string ItemsUrl = "api/items";
-        protected static readonly string ArticlesUrl = "api/articles"; 
+        protected static readonly string ArticlesUrl = "api/articles";
 
         protected static StringContent GetContent<T>(T request)
         {

@@ -11,19 +11,19 @@ namespace ProjectName.Core.Handlers
 {
     public class AddArticle : IRequest<Guid>
     {
-        public Article Article { get; }
-
         public AddArticle(Article article)
         {
             Article = article;
         }
+
+        public Article Article { get; }
     }
 
     public class AddArticleHandler : IRequestHandler<AddArticle, Guid>
     {
-        private readonly ILogger<AddArticleHandler> _logger;
         private readonly IArticlesRepository _articlesRepository;
         private readonly IArticleValidator _articleValidator;
+        private readonly ILogger<AddArticleHandler> _logger;
 
         public AddArticleHandler(
             ILogger<AddArticleHandler> logger,

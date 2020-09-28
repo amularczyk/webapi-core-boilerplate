@@ -14,8 +14,6 @@ namespace ProjectName.Api.Filters
             _logger = logger;
         }
 
-        public int Order { get; }
-
         public async Task OnExceptionAsync(ExceptionContext context)
         {
             if (context.ExceptionHandled)
@@ -29,5 +27,6 @@ namespace ProjectName.Api.Filters
             context.ExceptionHandled = true;
         }
 
+        public int Order { get; }
     }
 }

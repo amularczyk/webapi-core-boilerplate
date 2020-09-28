@@ -14,7 +14,7 @@ namespace ProjectName.Core.Services
         {
             UtcNow = DateTime.UtcNow;
         }
-        
+
         public DateTime UtcNow { get; }
     }
 }

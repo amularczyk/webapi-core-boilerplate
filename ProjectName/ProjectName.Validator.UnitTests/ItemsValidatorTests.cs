@@ -30,7 +30,7 @@ namespace ProjectName.Validator.UnitTests
             var sut = _mocker.Create<ItemValidator>();
 
             // Act
-            var action = (Func<Task>) (() => sut.ValidateAndThrowAsync(item));
+            var action = (Func<Task>)(() => sut.ValidateAndThrowAsync(item));
 
             // Assert
             var ex = await Should.ThrowAsync<ValidationException>(action).ConfigureAwait(false);

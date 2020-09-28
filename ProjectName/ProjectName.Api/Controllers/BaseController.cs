@@ -33,24 +33,19 @@ namespace ProjectName.Api.Controllers
 
         protected IActionResult HandleOperationResult(OperationResult result)
         {
-            switch (result.Status)
+            return result.Status switch
             {
-                case OperationResultStatus.Success:
-                    if (result.GetValue() != null)
-                        return Ok(result.GetValue());
-                    return NoContent();
-                case OperationResultStatus.Forbid:
-                    return new ObjectResult(result.Message)
-                    {
-                        StatusCode = StatusCodes.Status403Forbidden
-                    };
-                case OperationResultStatus.NotFound:
-                    return NotFound(result.Message);
-                case OperationResultStatus.Error:
-                    return BadRequest(result.Message);
-                default:
-                    throw new ArgumentOutOfRangeException();
-            }
+                OperationResultStatus.Success => (result.GetValue() != null
+                    ? (IActionResult)Ok(result.GetValue())
+                    : (IActionResult)NoContent()),
+                OperationResultStatus.Forbid => new ObjectResult(result.Message)
+                {
+                    StatusCode = StatusCodes.Status403Forbidden
+                },
+                OperationResultStatus.NotFound => NotFound(result.Message),
+                OperationResultStatus.Error => BadRequest(result.Message),
+                _ => throw new ArgumentOutOfRangeException()
+            };
         }
     }
 }

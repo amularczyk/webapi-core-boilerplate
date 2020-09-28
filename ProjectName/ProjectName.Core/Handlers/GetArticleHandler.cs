@@ -10,23 +10,23 @@ namespace ProjectName.Core.Handlers
 {
     public class GetArticle : IRequest<Article>
     {
-        public Guid ArticleId { get; }
-
         public GetArticle(Guid articleId)
         {
             ArticleId = articleId;
         }
+
+        public Guid ArticleId { get; }
     }
 
     public class GetArticleHandler : IRequestHandler<GetArticle, Article>
     {
-        private readonly ILogger<GetArticleHandler> _logger;
         private readonly IArticlesRepository _articlesRepository;
+        private readonly ILogger<GetArticleHandler> _logger;
 
         public GetArticleHandler(
             ILogger<GetArticleHandler> logger,
             IArticlesRepository articlesRepository
-            )
+        )
         {
             _logger = logger;
             _articlesRepository = articlesRepository;
