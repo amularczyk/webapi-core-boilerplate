@@ -4,6 +4,7 @@ using System.Threading.Tasks;
 using MediatR;
 using Microsoft.Extensions.Logging;
 using ProjectName.Core.Interfaces.Repositories;
+using ProjectName.Core.Interfaces.Validators;
 
 namespace ProjectName.Core.Handlers
 {
@@ -23,23 +24,28 @@ namespace ProjectName.Core.Handlers
     {
         private readonly ILogger<ChangeArticleNameHandler> _logger;
         private readonly IArticlesRepository _articlesRepository;
+        private readonly IArticleValidator _articleValidator;
 
         public ChangeArticleNameHandler(
             ILogger<ChangeArticleNameHandler> logger,
-            IArticlesRepository articlesRepository
-            )
+            IArticlesRepository articlesRepository,
+            IArticleValidator articleValidator
+        )
         {
             _logger = logger;
             _articlesRepository = articlesRepository;
+            _articleValidator = articleValidator;
         }
 
         protected override async Task Handle(ChangeArticleName request, CancellationToken cancellationToken)
         {
-            var item = await _articlesRepository.RetrieveByIdAsync(request.ArticleId).ConfigureAwait(false);
+            var article = await _articlesRepository.RetrieveByIdAsync(request.ArticleId).ConfigureAwait(false);
 
-            item.ChangeName(request.ArticleName);
+            article.ChangeName(request.ArticleName);
 
-            await _articlesRepository.UpdateAsync(item).ConfigureAwait(false);
+            await _articleValidator.ValidateEntityAndThrowAsync(article).ConfigureAwait(false);
+
+            await _articlesRepository.UpdateAsync(article).ConfigureAwait(false);
         }
     }
 }

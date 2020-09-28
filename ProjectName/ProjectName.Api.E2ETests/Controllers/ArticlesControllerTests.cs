@@ -134,5 +134,27 @@ namespace ProjectName.Api.E2ETests.Controllers
             result.Name.ShouldBe(newName);
             result.Name.ShouldNotBe(article.Name);
         }
+
+        [Fact]
+        public async Task ChangeNameAsync_ShouldReturnError_WhenNameIsEmpty()
+        {
+            // arrange
+            var article = new ArticleViewModel { Name = Guid.NewGuid().ToString() };
+            var newName = string.Empty;
+
+            var client = _factory.CreateClient();
+
+            var addArticleResponse = await client.PostAsync(ArticlesUrl, GetContent(article)).ConfigureAwait(false);
+            var articleId = await GetResult<Guid>(addArticleResponse).ConfigureAwait(false);
+
+            // act
+            var response = await client.PatchAsync($"{ArticlesUrl}/{articleId}?name={newName}", null).ConfigureAwait(false);
+
+            // assert
+            response.StatusCode.ShouldBe(HttpStatusCode.BadRequest);
+            var result = await response.Content.ReadAsStringAsync().ConfigureAwait(false);
+            result.ShouldContain("Validation failed:");
+            result.ShouldContain("Name: 'Name' must not be empty.");
+        }
     }
 }

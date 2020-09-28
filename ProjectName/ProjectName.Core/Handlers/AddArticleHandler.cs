@@ -4,6 +4,7 @@ using System.Threading.Tasks;
 using MediatR;
 using Microsoft.Extensions.Logging;
 using ProjectName.Core.Interfaces.Repositories;
+using ProjectName.Core.Interfaces.Validators;
 using ProjectName.Core.Models;
 
 namespace ProjectName.Core.Handlers
@@ -22,20 +23,25 @@ namespace ProjectName.Core.Handlers
     {
         private readonly ILogger<AddArticleHandler> _logger;
         private readonly IArticlesRepository _articlesRepository;
+        private readonly IArticleValidator _articleValidator;
 
         public AddArticleHandler(
             ILogger<AddArticleHandler> logger,
-            IArticlesRepository articlesRepository
-            )
+            IArticlesRepository articlesRepository,
+            IArticleValidator articleValidator
+        )
         {
             _logger = logger;
             _articlesRepository = articlesRepository;
+            _articleValidator = articleValidator;
         }
 
         public async Task<Guid> Handle(AddArticle request, CancellationToken cancellationToken)
         {
-            _logger.LogInformation("Logging test");
+            await _articleValidator.ValidateEntityAndThrowAsync(request.Article).ConfigureAwait(false);
+
             await _articlesRepository.InsertAsync(request.Article).ConfigureAwait(false);
+
             return request.Article.Id;
         }
     }
