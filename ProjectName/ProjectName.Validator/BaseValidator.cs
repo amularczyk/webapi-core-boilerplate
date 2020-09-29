@@ -14,12 +14,12 @@ namespace ProjectName.Validator
 
         public virtual async Task ValidateEntityAndThrowAsync(T entity)
         {
-            await this.ValidateAndThrowAsync(entity);
+            await this.ValidateAndThrowAsync(entity).ConfigureAwait(false);
         }
 
         public virtual async Task<ValidationResult> ValidateEntityAsync(T entity)
         {
-            return await ValidateAsync(entity);
+            return await ValidateAsync(entity).ConfigureAwait(false);
         }
     }
 }

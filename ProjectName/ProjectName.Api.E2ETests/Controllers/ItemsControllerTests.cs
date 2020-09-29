@@ -21,7 +21,7 @@ namespace ProjectName.Api.E2ETests.Controllers
         private readonly WebApiTesterFactory _factory;
 
         [Fact]
-        public async Task ChangeNameAsync_ShouldChangeItemName()
+        public async Task ChangeName_ShouldChangeItemName()
         {
             // arrange
             var item = new ItemViewModel { Name = Guid.NewGuid().ToString() };
@@ -45,7 +45,7 @@ namespace ProjectName.Api.E2ETests.Controllers
         }
 
         [Fact]
-        public async Task ChangeNameAsync_ShouldReturnError_WhenNameIsEmpty()
+        public async Task ChangeName_ShouldReturnError_WhenNameIsEmpty()
         {
             // arrange
             var item = new ItemViewModel { Name = Guid.NewGuid().ToString() };
@@ -67,7 +67,7 @@ namespace ProjectName.Api.E2ETests.Controllers
         }
 
         [Fact]
-        public async Task InsertAsync_ShouldAddedNewItem()
+        public async Task Insert_ShouldAddedNewItem()
         {
             // arrange
             var item = new ItemViewModel { Name = Guid.NewGuid().ToString() };
@@ -84,7 +84,7 @@ namespace ProjectName.Api.E2ETests.Controllers
         }
 
         [Fact]
-        public async Task InsertAsync_ShouldReturnError_WhenNameIsEmpty()
+        public async Task Insert_ShouldReturnError_WhenNameIsEmpty()
         {
             // arrange
             var item = new ItemViewModel();
@@ -102,7 +102,7 @@ namespace ProjectName.Api.E2ETests.Controllers
         }
 
         [Fact]
-        public async Task RetrieveAllAsync_ShouldReturnAddedItemInItemList()
+        public async Task RetrieveAll_ShouldReturnAddedItemInItemList()
         {
             // arrange
             var item = new ItemViewModel { Name = Guid.NewGuid().ToString() };
@@ -122,7 +122,7 @@ namespace ProjectName.Api.E2ETests.Controllers
         }
 
         [Fact]
-        public async Task RetrieveAllAsync_ShouldReturnAllItems()
+        public async Task RetrieveAll_ShouldReturnAllItems()
         {
             // arrange
             var client = _factory.CreateClient();
@@ -137,7 +137,7 @@ namespace ProjectName.Api.E2ETests.Controllers
         }
 
         [Fact]
-        public async Task RetrieveByIdAsync_ShouldReturnAddedItemDetails()
+        public async Task RetrieveById_ShouldReturnAddedItemDetails()
         {
             // arrange
             var item = new ItemViewModel { Name = Guid.NewGuid().ToString() };

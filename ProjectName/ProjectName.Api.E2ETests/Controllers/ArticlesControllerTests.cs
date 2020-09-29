@@ -21,7 +21,7 @@ namespace ProjectName.Api.E2ETests.Controllers
         private readonly WebApiTesterFactory _factory;
 
         [Fact]
-        public async Task ChangeNameAsync_ShouldChangeArticleName()
+        public async Task ChangeName_ShouldChangeArticleName()
         {
             // arrange
             var article = new ArticleViewModel { Name = Guid.NewGuid().ToString() };
@@ -46,7 +46,7 @@ namespace ProjectName.Api.E2ETests.Controllers
         }
 
         [Fact]
-        public async Task ChangeNameAsync_ShouldReturnError_WhenNameIsEmpty()
+        public async Task ChangeName_ShouldReturnError_WhenNameIsEmpty()
         {
             // arrange
             var article = new ArticleViewModel { Name = Guid.NewGuid().ToString() };
@@ -69,7 +69,7 @@ namespace ProjectName.Api.E2ETests.Controllers
         }
 
         [Fact]
-        public async Task InsertAsync_ShouldAddedNewArticle()
+        public async Task Insert_ShouldAddedNewArticle()
         {
             // arrange
             var article = new ArticleViewModel { Name = Guid.NewGuid().ToString() };
@@ -86,7 +86,7 @@ namespace ProjectName.Api.E2ETests.Controllers
         }
 
         [Fact]
-        public async Task InsertAsync_ShouldReturnError_WhenNameIsEmpty()
+        public async Task Insert_ShouldReturnError_WhenNameIsEmpty()
         {
             // arrange
             var article = new ArticleViewModel();
@@ -104,7 +104,7 @@ namespace ProjectName.Api.E2ETests.Controllers
         }
 
         [Fact]
-        public async Task RetrieveAllAsync_ShouldReturnAddedArticleInArticleList()
+        public async Task RetrieveAll_ShouldReturnAddedArticleInArticleList()
         {
             // arrange
             var article = new ArticleViewModel { Name = Guid.NewGuid().ToString() };
@@ -124,7 +124,7 @@ namespace ProjectName.Api.E2ETests.Controllers
         }
 
         [Fact]
-        public async Task RetrieveAllAsync_ShouldReturnAllArticles()
+        public async Task RetrieveAll_ShouldReturnAllArticles()
         {
             // arrange
             var client = _factory.CreateClient();
@@ -139,7 +139,7 @@ namespace ProjectName.Api.E2ETests.Controllers
         }
 
         [Fact]
-        public async Task RetrieveByIdAsync_ShouldReturnAddedArticleDetails()
+        public async Task RetrieveById_ShouldReturnAddedArticleDetails()
         {
             // arrange
             var article = new ArticleViewModel { Name = Guid.NewGuid().ToString() };
