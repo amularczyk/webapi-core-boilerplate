@@ -1,16 +1,23 @@
-﻿using System.Reflection;
+﻿using System.IO;
+using System.Reflection;
+using System.Text;
+using System.Threading;
 using MediatR;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http.Features;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Microsoft.Extensions.Logging;
 using Microsoft.OpenApi.Models;
 using ProjectName.Api.Filters;
 using ProjectName.Core.Interfaces;
 using ProjectName.DAL;
 using ProjectName.Validator;
 using Serilog;
+using ILogger = Serilog.ILogger;
 
 namespace ProjectName.Api
 {
@@ -84,7 +91,7 @@ namespace ProjectName.Api
             services
                 .AddControllers(options =>
                 {
-                    options.Filters.Add<UnhandledExceptionFilter>(0);
+                    //options.Filters.Add<UnhandledExceptionFilter>(0);
                     //options.Filters.Add<AuthorizationExceptionFilter>(1);
                     //options.Filters.Add<NoFoundExceptionFilter>(2);
                     //options.Filters.Add<ValidationExceptionFilter>(3);
