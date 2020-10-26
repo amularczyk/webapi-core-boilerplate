@@ -5,7 +5,7 @@ using Microsoft.AspNetCore.Mvc.Filters;
 
 namespace ProjectName.Api
 {
-    public class ResultHandlerFilter : IAlwaysRunResultFilter // IResultFilter
+    public class OperationResultHandlerFilter : IAlwaysRunResultFilter // IResultFilter
     {
         public void OnResultExecuted(ResultExecutedContext context)
         {

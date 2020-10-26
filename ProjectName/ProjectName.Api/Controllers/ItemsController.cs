@@ -3,6 +3,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using ProjectName.Api.Models;
+using ProjectName.Core.Exceptions;
 using ProjectName.Core.Interfaces.Services;
 using ProjectName.Core.Models;
 
@@ -25,6 +26,13 @@ namespace ProjectName.Api.Controllers
             _logger = logger;
             _itemsReadService = itemsReadService;
             _itemsWriteService = itemsWriteService;
+        }
+
+        [HttpGet("tmp")]
+        public async Task<OperationResult> Tmp()
+        {
+            return new OperationResult("is it working?", OperationResultStatus.Error);
+            return OperationResult<OperationResult>.Success(new OperationResult("is it working?", OperationResultStatus.Error));
         }
 
         [HttpGet]
