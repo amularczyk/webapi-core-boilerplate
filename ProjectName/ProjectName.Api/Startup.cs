@@ -1,6 +1,5 @@
 ﻿using System.Collections.Generic;
 using System.IO;
-using System.Linq;
 using System.Reflection;
 using System.Text;
 using System.Threading;
@@ -20,7 +19,6 @@ using ProjectName.Core.Interfaces;
 using ProjectName.DAL;
 using ProjectName.Validator;
 using Serilog;
-using ILogger = Serilog.ILogger;
 
 namespace ProjectName.Api
 {
@@ -41,6 +39,15 @@ namespace ProjectName.Api
             ConfigureSwagger(services);
 
             services.AddMediatR(typeof(ITransient));
+
+            //services.AddAuthorization(options =>
+            //{
+            //    options.AddPolicy("default", builder =>
+            //    {
+            //        builder.AuthenticationSchemes.Add("Bearer");
+            //        builder.RequireAuthenticatedUser();
+            //    });
+            //});
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
@@ -58,6 +65,8 @@ namespace ProjectName.Api
             //app.UseHttpsRedirection(); //ToDo: Not work for tests
 
             app.UseRouting();
+
+            app.UseMiddleware<AuthorizationMiddleware>();
 
             app.UseEndpoints(endpoints => { endpoints.MapControllers(); });
         }
@@ -91,17 +100,22 @@ namespace ProjectName.Api
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "My API" });
-                c.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
+                c.AddSecurityDefinition("AuthorizationBearer", new OpenApiSecurityScheme
                 {
                     Description = @"JWT Authorization header using the Bearer scheme.
-                      <br/> Enter 'Bearer' [space] and then your token in the text input below.
-                      <br/> Example: 'Bearer 12345abcdef'",
-                    Name = "Authorization",
-                    In = ParameterLocation.Header,
+                      <br/> Enter your token in the text input below.
+                      <br/> You don't have to add prefix 'Bearer'.
+                      <br/> Example: 'this_is_my_token'",
+                    Type = SecuritySchemeType.Http,
+                    Scheme = "Bearer"
+                });
+                c.AddSecurityDefinition("Tmp", new OpenApiSecurityScheme
+                {
+                    Description = @"Foo",
                     Type = SecuritySchemeType.ApiKey,
                     Scheme = "Bearer"
                 });
-                c.AddSecurityRequirement(new OpenApiSecurityRequirement()
+                c.AddSecurityRequirement(new OpenApiSecurityRequirement
                 {
                     {
                         new OpenApiSecurityScheme
@@ -109,12 +123,10 @@ namespace ProjectName.Api
                             Reference = new OpenApiReference
                             {
                                 Type = ReferenceType.SecurityScheme,
-                                Id = "Bearer"
+                                Id = "AuthorizationBearer"
                             },
                             Scheme = "oauth2",
-                            Name = "Bearer",
-                            In = ParameterLocation.Header,
-
+                            Name = "Bearer"
                         },
                         new List<string>()
                     }
